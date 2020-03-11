@@ -1,26 +1,36 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { connect } from 'react-redux';
+import changeNumber from './action/changeNumber';
+import decreseNumber from './action/decreseNumber';
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+        <h1>My lucky number is {props.number}</h1>
+        <button
+          onClick={() => {
+            props.dispatch(changeNumber(props.number));
+          }}
         >
-          Learn React
-        </a>
+          Increment
+        </button>
+        <br />
+        <button
+          onClick={() => {
+            props.dispatch(decreseNumber(props.number));
+          }}
+        >
+          Decrement
+        </button>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return { ...state };
+};
+
+export default connect(mapStateToProps)(App);
